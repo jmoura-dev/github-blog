@@ -1,8 +1,8 @@
-import { PostContainer } from './styles'
+import { PublicationContainer } from './styles'
 
-export function Post() {
+export function Publication() {
   return (
-    <PostContainer>
+    <PublicationContainer>
       <header>
         <h2>JavaScript data types and data structures</h2>
         <span>Há 1 dia</span>
@@ -20,6 +20,6 @@ export function Post() {
         let foo = 42; // foo is now a number foo // foo is now a string foo =
         true; // foo is now a boolean
       </p>
-    </PostContainer>
+    </PublicationContainer>
   )
 }

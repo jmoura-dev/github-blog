@@ -1,6 +1,6 @@
 import { styled } from 'styled-components'
 
-export const PostContainer = styled.div`
+export const PublicationContainer = styled.button`
   display: flex;
   flex-direction: column;
   padding: 2rem;
@@ -8,11 +8,14 @@ export const PostContainer = styled.div`
   border-radius: 7px;
   width: 26rem;
   height: 16.25rem;
+  cursor: pointer;
+  border: none;
+  text-align: left;
 
   > header {
     display: flex;
-    align-items: center;
-    gap: 0.5rem;
+    align-items: start;
+    gap: 1rem;
 
     > h2 {
       font-size: 1.25rem;
@@ -25,6 +28,8 @@ export const PostContainer = styled.div`
       font-size: 0.875rem;
       line-height: 1.6;
       color: ${({ theme }) => theme['base-span']};
+      width: 6rem;
+      margin-top: 0.5rem;
     }
   }
 
@@ -33,5 +38,7 @@ export const PostContainer = styled.div`
     -webkit-line-clamp: 5;
     overflow: hidden;
     -webkit-box-orient: vertical;
+    margin-top: 1.25rem;
+    color: ${({ theme }) => theme['base-span']};
   }
 `

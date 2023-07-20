@@ -1,7 +1,7 @@
 import { Header } from '../../components/Header'
 import { Profile } from '../../components/Profile'
-import { Post } from './components/Post'
-import { Content, HomeContainer, Search } from './styles'
+import { Publication } from './components/Publication'
+import { Content, HomeContainer, Main, Search } from './styles'
 
 export function Home() {
   return (
@@ -19,10 +19,12 @@ export function Home() {
           <input type="text" placeholder="Buscar conteúdo" />
         </Search>
 
-        <div>
-          <Post />
-          <Post />
-        </div>
+        <Main>
+          <Publication />
+          <Publication />
+          <Publication />
+          <Publication />
+        </Main>
       </Content>
     </HomeContainer>
   )

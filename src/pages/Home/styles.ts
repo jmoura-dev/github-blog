@@ -4,7 +4,7 @@ export const HomeContainer = styled.div`
   width: 100%;
 `
 
-export const Content = styled.main`
+export const Content = styled.div`
   max-width: 58rem;
   padding: 0 2rem;
   margin: 0 auto;
@@ -44,4 +44,12 @@ export const Search = styled.div`
     background: ${({ theme }) => theme['base-input']};
     color: ${({ theme }) => theme['base-title']};
   }
+`
+
+export const Main = styled.main`
+  width: 100%;
+  display: flex;
+  gap: 2rem;
+  margin: 3rem 0;
+  flex-wrap: wrap;
 `

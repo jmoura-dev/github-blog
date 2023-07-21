@@ -11,10 +11,17 @@ export const PublicationContainer = styled.button`
   cursor: pointer;
   border: none;
   text-align: left;
+  transition: background 0.2s ease;
+
+  &:hover {
+    background: ${({ theme }) => theme['base-profile']};
+  }
 
   > header {
     display: flex;
-    align-items: start;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
     gap: 1rem;
 
     > h2 {
@@ -40,5 +47,6 @@ export const PublicationContainer = styled.button`
     -webkit-box-orient: vertical;
     margin-top: 1.25rem;
     color: ${({ theme }) => theme['base-span']};
+    max-width: 23rem;
   }
 `

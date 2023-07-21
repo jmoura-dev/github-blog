@@ -46,7 +46,7 @@ export const Search = styled.div`
   }
 `
 
-export const Main = styled.main`
+export const Main = styled.ul`
   width: 100%;
   display: flex;
   gap: 2rem;

@@ -7,3 +7,10 @@ export const Content = styled.div`
   padding: 0 2rem;
   margin: 0 auto;
 `
+
+export const Main = styled.main`
+  display: flex;
+  flex-direction: column;
+  padding: 2.5rem 2rem;
+  width: 100%;
+`

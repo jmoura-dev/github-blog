@@ -3,44 +3,55 @@ import { AiFillGithub } from 'react-icons/ai'
 import { GoArrowUpRight } from 'react-icons/go'
 import { BsBuildingFill } from 'react-icons/bs'
 import { FaUserFriends } from 'react-icons/fa'
+import { useEffect, useState } from 'react'
+import { api } from '../../lib/axios'
+
+interface UserProps {
+  name: string
+  avatar_url: string
+  html_url: string
+  followers: string
+  login: string
+  company: string | null
+  bio: string
+}
 
 export function Profile() {
+  const [user, setUser] = useState({} as UserProps)
+
+  useEffect(() => {
+    async function fetchUser() {
+      const response = await api.get('/users/jmoura-dev')
+      setUser(response.data)
+    }
+    fetchUser()
+  }, [])
+
   return (
     <ProfileContainer>
-      <img
-        src="https://github.com/jmoura-dev.png"
-        alt="Imagem de perfil do usuário"
-      />
+      <img src={user.avatar_url} alt="Imagem de perfil do usuário" />
 
       <MainContainer>
         <div>
-          <h2>Jackson Moura</h2>
-          <a
-            href="https://github.com/jmoura-dev"
-            target="_blank"
-            rel="noreferrer"
-          >
+          <h2>{user.name}</h2>
+          <a href={user.html_url} target="_blank" rel="noreferrer">
             GITHUB
             <GoArrowUpRight size={16} />
           </a>
         </div>
 
-        <p>
-          Tristique volutpat pulvinar vel massa, pellentesque egestas. Eu
-          viverra massa quam dignissim aenean malesuada suscipit. Nunc, volutpat
-          pulvinar vel mass.
-        </p>
+        <p>{user.bio}</p>
 
         <footer>
           <span>
             <AiFillGithub />
-            jmoura-dev
+            {user.login}
           </span>
           <span>
-            <BsBuildingFill /> Desenvolvedor
+            <BsBuildingFill /> {user.company ? user.company : 'Não informado'}
           </span>
           <span>
-            <FaUserFriends /> 10 seguidores
+            <FaUserFriends /> {`${user.followers} Seguidores`}
           </span>
         </footer>
       </MainContainer>

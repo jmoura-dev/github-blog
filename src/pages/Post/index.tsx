@@ -1,35 +1,60 @@
+import { useEffect, useState } from 'react'
 import { Header } from '../../components/Header'
 import { PostInfo } from './components/PostInfo'
 import { PostContainer, Content, Main } from './styles'
+import { api } from '../../lib/axios'
+import { useParams } from 'react-router-dom'
+
+import ReactMarkdown from 'react-markdown'
+
+import { formatDistanceToNow } from 'date-fns'
+import ptBR from 'date-fns/locale/pt-BR'
+
+interface UserProps {
+  login: string
+}
+
+interface PostInfoProps {
+  title: string
+  user: UserProps | undefined
+  comments: number
+  created_at: string
+  body: string
+}
 
 export function Post() {
+  const params = useParams()
+  const [post, setPost] = useState({} as PostInfoProps)
+
+  useEffect(() => {
+    async function fetchUniquePost() {
+      const response = await api.get(
+        `repos/jmoura-dev/github-blog/issues/${params.id}`,
+      )
+      setPost(response.data)
+    }
+    fetchUniquePost()
+  }, [params.id])
+
   return (
     <PostContainer>
       <Header />
       <Content>
-        <PostInfo />
+        <PostInfo
+          title={post.title}
+          comments={post.comments}
+          user={post.user?.login}
+          created_at={
+            post.created_at &&
+            formatDistanceToNow(new Date(post.created_at), {
+              addSuffix: true,
+              locale: ptBR,
+            })
+          }
+        />
 
         <Main>
-          <p>
-            Programming languages all have built-in data structures, but these
-            often differ from one language to another. This article attempts to
-            list the built-in data structures available in JavaScript and what
-            properties they have. These can be used to build other data
-            structures. Wherever possible, comparisons with other languages are
-            drawn. Dynamic typing JavaScript is a loosely typed and dynamic
-            language. Variables in JavaScript are not directly associated with
-            any particular value type, and any variable can be assigned (and
-            re-assigned) values of all types:
-          </p>
-
-          <p>
-            {' '}
-            Programming languages all have built-in data structures, but these
-            often differ from one language to another. This article attempts to
-            list the built-in data structures available in JavaScript and what
-            properties they have. These can be used to build other data
-            structures
-          </p>
+          <ReactMarkdown>{post.body}</ReactMarkdown>
         </Main>
       </Content>
     </PostContainer>

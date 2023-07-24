@@ -1,24 +1,29 @@
 import { PublicationContainer } from './styles'
 import ReactMarkdown from 'react-markdown'
-import rehypeRaw from 'rehype-raw'
 
 interface PublicationProps {
   title: string
   date: string
   description: string
+  onClick: () => void
 }
 
-export function Publication({ title, date, description }: PublicationProps) {
+export function Publication({
+  title,
+  date,
+  description,
+  onClick,
+}: PublicationProps) {
   return (
-    <PublicationContainer>
+    <PublicationContainer onClick={onClick}>
       <header>
         <h2>{title}</h2>
         <span>{date}</span>
       </header>
 
-      <p>
-        <ReactMarkdown rehypePlugins={[rehypeRaw]}>{description}</ReactMarkdown>
-      </p>
+      <div>
+        <ReactMarkdown>{description}</ReactMarkdown>
+      </div>
     </PublicationContainer>
   )
 }

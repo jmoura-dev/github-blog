@@ -40,7 +40,7 @@ export const PublicationContainer = styled.button`
     }
   }
 
-  > p {
+  > div {
     display: -webkit-box;
     -webkit-line-clamp: 5;
     overflow: hidden;

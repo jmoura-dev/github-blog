@@ -7,6 +7,7 @@ import { formatDistanceToNow } from 'date-fns'
 import ptBR from 'date-fns/locale/pt-BR'
 
 import { api } from '../../lib/axios'
+import { useNavigate } from 'react-router-dom'
 
 interface ArrayIssuesProps {
   number: number
@@ -22,18 +23,31 @@ interface GithubDataProps {
 
 export function Home() {
   const [data, setData] = useState({} as GithubDataProps)
+  const navigate = useNavigate()
+  const [search, setSearch] = useState<string>('')
+
+  function handleSelectPost(item: number) {
+    navigate(`/post/${item}`)
+  }
 
   useEffect(() => {
     async function fetchGithubData() {
-      const response = await api.get(
-        'search/issues?q=api%20github%20repo:jmoura-dev/github-blog',
-      )
+      if (search) {
+        const response = await api.get(
+          `search/issues?q=${search}%20${search}repo:jmoura-dev/github-blog`,
+        )
 
-      setData(response.data)
+        setData(response.data)
+      } else if (!search) {
+        const response = await api.get(
+          'search/issues?q=api%20github%20repo:jmoura-dev/github-blog',
+        )
+
+        setData(response.data)
+      }
     }
-
     fetchGithubData()
-  })
+  }, [search])
 
   return (
     <HomeContainer>
@@ -47,7 +61,11 @@ export function Home() {
             <span>{`${data.total_count} publicações`}</span>
           </div>
 
-          <input type="text" placeholder="Buscar conteúdo" />
+          <input
+            type="text"
+            placeholder="Buscar conteúdo"
+            onChange={(e) => setSearch(e.target.value)}
+          />
         </Search>
 
         <Main>
@@ -62,6 +80,7 @@ export function Home() {
                     addSuffix: true,
                     locale: ptBR,
                   })}
+                  onClick={() => handleSelectPost(item.number)}
                 />
               )
             })}

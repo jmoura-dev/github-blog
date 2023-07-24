@@ -6,7 +6,14 @@ import { BsFillCalendarEventFill } from 'react-icons/bs'
 import { GoArrowUpRight } from 'react-icons/go'
 import { FaComment } from 'react-icons/fa'
 
-export function PostInfo() {
+interface PostInfoProps {
+  title: string
+  user: string | undefined
+  comments: number
+  created_at: string
+}
+
+export function PostInfo({ title, user, comments, created_at }: PostInfoProps) {
   return (
     <PostInfoContainer>
       <header>
@@ -23,17 +30,17 @@ export function PostInfo() {
           <GoArrowUpRight size={16} />
         </a>
       </header>
-      <h1>JavaScript data types and data structures</h1>
+      <h1>{title}</h1>
       <footer>
         <span>
           <AiFillGithub />
-          JMouraDev
+          {user}
         </span>
         <span>
-          <BsFillCalendarEventFill size={14} /> Há 1 dia
+          <BsFillCalendarEventFill size={14} /> {created_at}
         </span>
         <span>
-          <FaComment /> 5 comentários
+          <FaComment /> {`${comments} comentários`}
         </span>
       </footer>
     </PostInfoContainer>
